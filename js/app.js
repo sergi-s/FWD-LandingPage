@@ -76,6 +76,7 @@ function addNavBar() {
   main_hero.insertAdjacentElement("afterbegin", mainList);
 }
 
+// failed attempt without loops
 // function inView(el) {
 //   let rect = el.getBoundingClientRect();
 //   return (rect.top >= 0 && window.innerHeight>rect.bottom);
@@ -94,6 +95,8 @@ function addNavBar() {
 // }
 
 function setActive() {
+  //find the percentage of each element on the screen
+  //and add to class "active" to the max
   let max = -1;
   let maxIndex = -1;
 
@@ -105,6 +108,8 @@ function setActive() {
       maxIndex = index;
     }
 
+    // removing the class "active" from the !max and adding it to the max
+
     for (let index = 0; index < sections.length; index++) {
       if (index != maxIndex) {
         sections[index].classList.remove("your-active-class");
@@ -113,10 +118,11 @@ function setActive() {
       }
     }
   }
+  //tried to do it without any loops
+  // but the class didnt be removed if not in view port
 }
 
 window.addEventListener("scroll", setActive);
-
 /**
  * End Main Functions
  * Begin Events
@@ -130,4 +136,3 @@ addNavBar();
 //Dont need dom manipulation-> just use the <a> and the href is the ID of the section
 // for the smooth scrolling (just add in the css file "scroll-behavior: smooth")
 // Set sections as active
-// window.addEventListener("scroll", setActive);
