@@ -1,4 +1,3 @@
-addNavBar();
 /**
  *
  * Manipulating the DOM exercise.
@@ -24,6 +23,9 @@ addNavBar();
  *
  */
 
+//* get all section in the HTML page
+let sections = document.querySelectorAll("section");
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -32,6 +34,8 @@ addNavBar();
 
 /**
  * End Helper Functions
+ */
+/**
  * Begin Main Functions
  *
  */
@@ -44,9 +48,6 @@ addNavBar();
 
 //? Add the NavBar dynamically depending on  the section in the HTML page
 function addNavBar() {
-  //* get all section in the HTML page
-  let sections = document.querySelectorAll("section");
-
   //* The navbar is an unordered list
   //* create the ul and adding the styling using the css class Name in the skeleton
   const mainList = document.createElement("ul");
@@ -74,6 +75,48 @@ function addNavBar() {
   let main_hero = document.querySelector(".main__hero");
   main_hero.insertAdjacentElement("afterbegin", mainList);
 }
+
+// function inView(el) {
+//   let rect = el.getBoundingClientRect();
+//   return (rect.top >= 0 && window.innerHeight>rect.bottom);
+// }
+// function setActive() {
+//   for (let section of sections) {
+//     if (!inView(section)) {
+//     //   if (!section.classList.contains("your-active-class")) {
+//         section.classList.add("your-active-class");
+//         console.log(section.getAttribute("id"))
+//     //   }
+//     } else {
+//       section.classList.remove("your-active-class");
+//     }
+//   }
+// }
+
+function setActive() {
+  let max = -1;
+  let maxIndex = -1;
+
+  for (let index = 0; index < sections.length; index++) {
+    const rect = sections[index].getBoundingClientRect();
+    const perc = sections[index].clientHeight / Math.abs(rect.y);
+    if (max <= perc) {
+      max = perc;
+      maxIndex = index;
+    }
+
+    for (let index = 0; index < sections.length; index++) {
+      if (index != maxIndex) {
+        sections[index].classList.remove("your-active-class");
+      } else {
+        sections[index].classList.add("your-active-class");
+      }
+    }
+  }
+}
+
+window.addEventListener("scroll", setActive);
+
 /**
  * End Main Functions
  * Begin Events
@@ -82,6 +125,9 @@ function addNavBar() {
 
 // Build menu
 
+addNavBar();
 // Scroll to section on link click
-
+//Dont need dom manipulation-> just use the <a> and the href is the ID of the section
+// for the smooth scrolling (just add in the css file "scroll-behavior: smooth")
 // Set sections as active
+// window.addEventListener("scroll", setActive);
