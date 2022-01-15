@@ -72,7 +72,7 @@ function addNavBar() {
   }
 
   //* Adding the new mainList to the <header> using it's class Name
-  let main_hero = document.querySelector(".main__hero");
+  let main_hero = document.querySelector(".page__header");
   main_hero.insertAdjacentElement("afterbegin", mainList);
 }
 
