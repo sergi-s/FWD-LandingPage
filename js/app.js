@@ -31,21 +31,21 @@ let sections = document.querySelectorAll("section");
  * Start Helper Functions
  *
  */
-function addClass(i) {
-  console.log("addclass")
+function highlighting(i) {
   sections[i].classList.add("your-active-class");
   document.getElementById(`li_${i}`).classList.add("highlight");
-  
+
   // console.log(document.getElementById(`li_${i}`));
-  console.log(`li_${i}`);
+  // console.log(`li_${i}`);
 }
-function removeClass(i) {
+function removeHighlighting(i) {
   document.getElementById(`li_${i}`).classList.remove("highlight");
   sections[i].classList.remove("your-active-class");
 }
 /**
  * End Helper Functions
  */
+
 /**
  * Begin Main Functions
  *
@@ -75,11 +75,12 @@ function addNavBar() {
     let a = document.createElement("a");
     // setting the content of the <a> as the "data-nav" property of the <section>
     a.textContent = `${sections[i].getAttribute("data-nav")}`;
-    a.href = `#${sections[i].id}`;
+    // a.href = `#${sections[i].id}`; Removed to see the effect of the scrollIntoView function
     a.className = "menu__link";
-    a.id = `a_${i}`;
+    a.id = `${i}`;
     a.onclick = function (e) {
-      addClass(e.target.id - 1);
+      highlighting(e.target.id);
+      sections[e.target.id].scrollIntoView({ behavior: "smooth" });
     };
 
     li.appendChild(a);
@@ -110,9 +111,9 @@ function setActive() {
 
     for (let index = 0; index < sections.length; index++) {
       if (index != maxIndex) {
-        removeClass(index);
+        removeHighlighting(index);
       } else {
-        addClass(index);
+        highlighting(index);
       }
     }
   }
