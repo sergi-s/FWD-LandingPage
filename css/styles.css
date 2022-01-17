@@ -8,9 +8,9 @@
  *
 */
 
-html{
+/* html{
     scroll-behavior: smooth;
-}
+} */
 
 /* ---- Base Rules ---- */
 body {
@@ -209,6 +209,10 @@ section.your-active-class .landing__container::before {
 section.your-active-class .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
+}
+
+li.highlight{
+    background-color: aqua;
 }
 
 /* Section Active Styles Keyframe Animations */
