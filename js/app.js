@@ -31,7 +31,18 @@ let sections = document.querySelectorAll("section");
  * Start Helper Functions
  *
  */
-
+function addClass(i) {
+  console.log("addclass")
+  sections[i].classList.add("your-active-class");
+  document.getElementById(`li_${i}`).classList.add("highlight");
+  
+  // console.log(document.getElementById(`li_${i}`));
+  console.log(`li_${i}`);
+}
+function removeClass(i) {
+  document.getElementById(`li_${i}`).classList.remove("highlight");
+  sections[i].classList.remove("your-active-class");
+}
 /**
  * End Helper Functions
  */
@@ -59,12 +70,17 @@ function addNavBar() {
   for (let i = 0; i < sections.length; i++) {
     const li = document.createElement("li");
     li.className = "navbar__menu";
+    li.id = `li_${i}`;
 
     let a = document.createElement("a");
     // setting the content of the <a> as the "data-nav" property of the <section>
     a.textContent = `${sections[i].getAttribute("data-nav")}`;
     a.href = `#${sections[i].id}`;
     a.className = "menu__link";
+    a.id = `a_${i}`;
+    a.onclick = function (e) {
+      addClass(e.target.id - 1);
+    };
 
     li.appendChild(a);
 
@@ -75,24 +91,6 @@ function addNavBar() {
   let main_hero = document.querySelector(".page__header");
   main_hero.insertAdjacentElement("afterbegin", mainList);
 }
-
-// failed attempt without loops
-// function inView(el) {
-//   let rect = el.getBoundingClientRect();
-//   return (rect.top >= 0 && window.innerHeight>rect.bottom);
-// }
-// function setActive() {
-//   for (let section of sections) {
-//     if (!inView(section)) {
-//     //   if (!section.classList.contains("your-active-class")) {
-//         section.classList.add("your-active-class");
-//         console.log(section.getAttribute("id"))
-//     //   }
-//     } else {
-//       section.classList.remove("your-active-class");
-//     }
-//   }
-// }
 
 function setActive() {
   //find the percentage of each element on the screen
@@ -112,14 +110,13 @@ function setActive() {
 
     for (let index = 0; index < sections.length; index++) {
       if (index != maxIndex) {
-        sections[index].classList.remove("your-active-class");
+        removeClass(index);
       } else {
-        sections[index].classList.add("your-active-class");
+        addClass(index);
       }
     }
   }
-  //tried to do it without any loops
-  // but the class didnt be removed if not in view port
+  // NOTE: tried to do it without any loops but the class didnt be removed if not in view port
 }
 
 window.addEventListener("scroll", setActive);
@@ -130,9 +127,27 @@ window.addEventListener("scroll", setActive);
  */
 
 // Build menu
-
 addNavBar();
+
 // Scroll to section on link click
-//Dont need dom manipulation-> just use the <a> and the href is the ID of the section
+// Dont need dom manipulation-> just use the <a> and the href is the ID of the section
 // for the smooth scrolling (just add in the css file "scroll-behavior: smooth")
 // Set sections as active
+
+// failed attempt without loops
+// function inView(el) {
+//   let rect = el.getBoundingClientRect();
+//   return (rect.top >= 0 && window.innerHeight>rect.bottom);
+// }
+// function setActive() {
+//   for (let section of sections) {
+//     if (!inView(section)) {
+//     //   if (!section.classList.contains("your-active-class")) {
+//         section.classList.add("your-active-class");
+//         console.log(section.getAttribute("id"))
+//     //   }
+//     } else {
+//       section.classList.remove("your-active-class");
+//     }
+//   }
+// }
